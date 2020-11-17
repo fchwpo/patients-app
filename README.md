@@ -1,5 +1,5 @@
 <p align="center">
-  Patients Application
+  <h2 align="center"> Patients Application </h2>
 </p>
 
 ## Description
