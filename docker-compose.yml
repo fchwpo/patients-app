@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  database:
+    image: 'mysql:latest'
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: patients
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: mpselect
+      MYSQL_PASSWORD: mps3l3Ct
+    volumes: 
+      - mysqldata:/var/lib/mysql
+    ports: 
+      - 9298:3306
+  server:
+    depends_on:
+      - database
+    restart: always
+    working_dir: /app
+    build:
+      dockerfile: Dockerfile
+      context: ./patients-server
+    ports:
+      - 3015:3015
+    volumes:
+      - build:/build
+      - ./uploads:/app/uploads
+    links: 
+      - database:mysqldb
+    environment:
+      - NODE_ENV=production
+  client:
+    working_dir: /app
+    build:
+      dockerfile: Dockerfile
+      context: ./patients-client
+    volumes:
+      - build:/app/build
+    environment:
+      - NODE_ENV=production
+volumes:
+  build:
+  mysqldata:
