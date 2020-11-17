@@ -1,0 +1,6 @@
+[submodule "patients-server"]
+	path = patients-server
+	url = https://github.com/fchwpo/patients-server.git
+[submodule "patients-client"]
+	path = patients-client
+	url = https://github.com/fchwpo/patients-client.git
